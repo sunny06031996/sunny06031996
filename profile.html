@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>
+            Profile
+        </title>
+        <script src="demo.js"></script>
+    </head>
+<body>
+    <h2>Profile</h2>
+   
+    <button onclick="Logout();" style="float: right;">Logout</button>
+    
+    <h3>Welcome Profile Page </h3>
+    <h4>Name:
+        <script>document.write(localStorage.getItem('name'));</script>
+    </h4>
+    <h4>Email:
+        <script>document.write(localStorage.getItem('email'));</script>
+    </h4>
+
+</body>
+</html>
