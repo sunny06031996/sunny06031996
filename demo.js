@@ -50,7 +50,7 @@ function saveData() {
                 "mobile": mobile,
                 "gender": gender,
                 "age": age,
-                "religion": religion  
+                "religion": religion
             })
            
             localStorage.setItem("users", JSON.stringify(user_records))
