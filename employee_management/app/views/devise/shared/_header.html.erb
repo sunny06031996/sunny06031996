@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <%= link_to 'DeviseDemo', root_path, class: 'navbar-brand' %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    
+         
+            <% if employee_signed_in? %>
+            <strong><%= current_employee.role %></strong>
+            <%= link_to 'Edit profile', edit_employee_registration_path, :class => 'navbar-link' %> |
+            <%= link_to 'Sign Out', destroy_employee_session_path, class: "navbar-link" %>
+            <% else %>
+            <%= link_to "Sign up", new_employee_registration_path, :class => 'navbar-link'  %>|
+            <%= link_to 'Sign In', new_employee_session_path, class: "dropdown-item" %>              
+            <% end %>
+         
+    </div>
+  </div>
+</nav>
+
+

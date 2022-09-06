@@ -14,6 +14,10 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
 
+  config.action_mailer.delivery_method = :smtp
+  config.active_storage.service= :local
+  
+
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
 
@@ -61,6 +65,8 @@ Rails.application.configure do
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
+
+  config.action_mailer.perform_deliveries = true
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true

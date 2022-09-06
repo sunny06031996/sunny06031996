@@ -16,12 +16,12 @@ class Employees::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/edit
   def create
-    @employee = Employee.new(emp_params)
+    @employee=Employee.new(emp_params)
     if @employee.save
-      render json:{message:'Employee register successfully!'}
+      redirect_to employees_path,notice: 'employee created successfully'
     else
-      render error:{error: 'Unable create user '}
-    end
+      render :new 
+    end 
   end
 
   private

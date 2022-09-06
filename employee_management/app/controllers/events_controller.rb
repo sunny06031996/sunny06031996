@@ -2,18 +2,17 @@ class EventsController < ApplicationController
   # before_action :check_role
 
   def new
+    @event=Event.new
  
   end
 
   def create
-    puts "Inside the Events controller"
     @event=Event.new(event_params)
     if @event.save
-      byebug
-      render json:@event
-      logger.debug "event details : #{@event}"
+      #render json:@event
+      redirect_to employees_path,notice: 'event created successfully'
     else
-      render error:{error: 'Unable create event'}
+      render :new
     end 
   end 
 
@@ -39,3 +38,6 @@ class EventsController < ApplicationController
     params.require(:event).permit(:employee_id,:name,:location)
   end 
 end
+
+
+ 

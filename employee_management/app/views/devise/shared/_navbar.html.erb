@@ -137,11 +137,15 @@ body{
   <!-- Collection of nav links, forms, and other content for toggling -->
   <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
     <div class="navbar-nav">
-      <%= link_to "SignUp", new_employee_registration_path, :class =>"nav-item nav-link"%>
-      <%= link_to "LogIn", employee_session_path, :class =>"nav-item nav-link"%>
-      <%= link_to 'Sign Out', destroy_employee_session_path, method: :delete, class: "nav-item nav-link" %>
-
-        </div>
+       <% if employee_signed_in? %>
+       <strong><%= current_employee.role %></strong>
+       <%= link_to 'Edit profile', edit_employee_registration_path, :class => 'navbar-link' %> |
+       <%= link_to "Logout", destroy_employee_session_path, method: :delete, :class => 'navbar-link'  %>
+       <% else %>
+       <%= link_to "Sign up", new_employee_registration_path, :class => 'navbar-link'  %> |
+       <%= link_to "Login", new_employee_session_path, :class => 'navbar-link'  %>
+       <% end %>
+      </div>
     <div class="navbar-nav ml-auto">
       <div class="navbar-form-wrapper">
         <form class="navbar-form form-inline">
@@ -157,7 +161,6 @@ body{
             </div>
 
         </div>
-  </div>
 </nav>
 </body>
 </html>

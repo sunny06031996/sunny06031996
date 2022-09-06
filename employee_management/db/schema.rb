@@ -10,13 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_31_070503) do
-  create_table "comments", charset: "latin1", force: :cascade do |t|
-    t.string "text"
-    t.integer "post_id"
-    t.integer "employee_id"
+ActiveRecord::Schema[7.0].define(version: 2022_09_05_095948) do
+  create_table "active_storage_attachments", charset: "latin1", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", charset: "latin1", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum"
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", charset: "latin1", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "comments", charset: "latin1", force: :cascade do |t|
+    t.text "content"
+    t.bigint "post_id", null: false
+    t.bigint "employee_id", null: false
+    t.index ["employee_id"], name: "index_comments_on_employee_id"
+    t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
   create_table "employees", charset: "latin1", force: :cascade do |t|
@@ -25,7 +53,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_070503) do
     t.string "address"
     t.string "contact_number"
     t.integer "role"
-    t.bigint "events_id"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -34,7 +61,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_070503) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_employees_on_email", unique: true
-    t.index ["events_id"], name: "index_employees_on_events_id"
     t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true
   end
 
@@ -47,23 +73,28 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_070503) do
   end
 
   create_table "events", charset: "latin1", force: :cascade do |t|
-    t.integer "employee_id"
-    t.string "name"
-    t.string "location"
+    t.text "name"
+    t.bigint "employee_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_events_on_employee_id"
   end
 
   create_table "likes", charset: "latin1", force: :cascade do |t|
+    t.string "likeable_type", null: false
+    t.bigint "likeable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
   end
 
   create_table "posts", charset: "latin1", force: :cascade do |t|
-    t.string "text"
-    t.integer "employee_id"
+    t.text "content"
+    t.bigint "employee_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "title"
+    t.index ["employee_id"], name: "index_posts_on_employee_id"
   end
 
   create_table "roles", charset: "latin1", force: :cascade do |t|
@@ -77,4 +108,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_070503) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "employees"
+  add_foreign_key "comments", "posts"
+  add_foreign_key "events", "employees"
+  add_foreign_key "posts", "employees"
 end
