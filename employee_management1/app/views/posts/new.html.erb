@@ -1,0 +1,14 @@
+<div class="container d-flex">
+  <%= form_for @post do |f| %>
+
+   <%= f.label :title, class: 'form-label' %>
+   <%= f.text_field :title, class: 'form-control' %><br/>
+
+   <%= f.label :content, class: 'form-label' %>
+   <%= f.text_area :content, class: 'form-control' %><br/>
+
+   <%= f.submit class: "btn btn-primary" %>
+
+  <% end %>
+
+</div>
