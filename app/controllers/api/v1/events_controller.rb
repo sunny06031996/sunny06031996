@@ -2,7 +2,7 @@ class Api::V1::EventsController < Api::V1:: ApplicationController
 
     def index
         @events = Event.all
-        render json: @events
+        render json: @events,each_serailizer:PostSerializer
     end    
 
     def create
