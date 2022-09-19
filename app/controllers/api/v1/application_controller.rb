@@ -17,11 +17,11 @@ module Api
         end
       end
 
-      def authorized_user
+      def authorized_employee
         decoded_token = decode_token()
         if decoded_token
-          user_id = decoded_token[0]['user_id']
-          @user = User.find_by(id: user_id)
+          employee_id = decoded_token[0]['employee_id']
+          @user = Employee.find_by(id: employee_id)
         end
       end
 

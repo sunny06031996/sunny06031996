@@ -6,6 +6,7 @@ Rails.application.routes.draw do
        get 'employees/show_employee/:teamlead_id', to: 'employees#show_employee'
       resources :posts
       resources :events
+      resources :comments
     end  
   end    
   

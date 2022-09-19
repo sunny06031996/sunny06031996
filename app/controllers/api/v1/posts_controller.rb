@@ -11,7 +11,6 @@ class Api::V1::PostsController < Api::V1:: ApplicationController
 
   def create
     employee=current_employee
-    byebug
     @post = employee.posts.new(post_params)
     if @post.save
        render json: { post: @post }, status: :ok

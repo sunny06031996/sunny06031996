@@ -9,9 +9,8 @@ class Api::V1::EmployeesController < Api::V1::ApplicationController
 
   def create
     @employee=Employee.new(emp_params)
-    if @employee.save
-      token = encode_token({ employee_id: @employee.id })
-      render json: { employee: @employee, token: token }, status: :ok
+    if @employee.save 
+      render json: { employee: @employee}, status: :ok
     else
       render json:{error:"Please fill valid field"}  
     end  
@@ -28,10 +27,10 @@ class Api::V1::EmployeesController < Api::V1::ApplicationController
   end
 
   def login
-    @employee =  Employee.find_by(email: emp_params[:email])   
-    if @employee && @employee.authenticate(emp_params[:password])
+    @employee =  Employee.find_by(email: params[:email])   
+    if @employee && @employee.authenticate(params[:password])
       token = encode_token({ employee_id: @employee.id })
-      render json: { employee: @employee, token: token }, status: :ok
+      render json: {token: token }, status: :ok
     else
       render json: { error: 'Invalid username or password' }, status: :unprocessable_entity
     end
