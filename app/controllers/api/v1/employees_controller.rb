@@ -1,4 +1,10 @@
 class Api::V1::EmployeesController < Api::V1::ApplicationController
+   before_action :set_employee, only: [:show, :destroy,:update]
+   def index
+    @employees=Employee.all
+    render json: @employees
+  end
+
 
   def create
     @employee=Employee.new(emp_params)
@@ -8,8 +14,18 @@ class Api::V1::EmployeesController < Api::V1::ApplicationController
     else
       render json:{error:"Please"}  
     end  
-
   end 
+
+  def update
+    byebug
+    @employee = Employee.find(params[:id])
+    if @employee
+      @employee.update(emp_params)
+      render json: {message:'employee updated successfully !'},status:200
+    else
+      render json:{error:'employee not updated'}
+    end  
+  end
 
    def login
         @employee =  Employee.find_by(email: emp_params[:email])   
@@ -32,11 +48,6 @@ class Api::V1::EmployeesController < Api::V1::ApplicationController
   end 
 
 
-  def index
-    @employees=Employee.all
-    render json: @employees
-   
-  end
 
   
 

@@ -1,7 +1,8 @@
 class Api::V1::PostsController < Api::V1:: ApplicationController
+  
  def index
    @posts=Post.all
-   render json: @posts
+   render json: @posts,each_serailizer: PostsSerializer
  end  
 
  def new

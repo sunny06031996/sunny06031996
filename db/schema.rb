@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_18_101048) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_18_162427) do
   create_table "comments", charset: "latin1", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
