@@ -11,6 +11,7 @@ class Api::V1::PostsController < Api::V1:: ApplicationController
 
   def create
     employee=current_employee
+    byebug
     @post = employee.posts.new(post_params)
     if @post.save
        render json: { post: @post }, status: :ok
@@ -22,7 +23,7 @@ class Api::V1::PostsController < Api::V1:: ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title,:content)
+    params.require(:post).permit(:title,:content,:current_employee)
   end
 
   def  current_employee

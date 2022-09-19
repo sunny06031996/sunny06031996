@@ -19,6 +19,7 @@ class Api::V1::EventsController < Api::V1:: ApplicationController
         @current_employee = Employee.find_by(params[:id])  
     end    
 
+    def 
     private
     def event_params
         params.require(:event).permit(:name,:current_employee)

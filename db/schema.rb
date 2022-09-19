@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_18_162427) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_19_064622) do
   create_table "comments", charset: "latin1", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -27,6 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_18_162427) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "isdeleted", default: false
     t.index ["teamlead_id"], name: "index_employees_on_teamlead_id"
   end
 

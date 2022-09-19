@@ -45,25 +45,19 @@ class Api::V1::EmployeesController < Api::V1::ApplicationController
 
   def destroy
   	@employee = Employee.find(params[:id])
-  	respond_to do |format|
-  		if @employee
-  			@employee.destroy
-  			format.json {render json: {message:'employee deleted successfully !'},status:200}
-  		else
-         	format.json {render json:{message:"Unable to deleted "},status:400}
-      	end
-  	end		
+    if(@employee.isdeleted==true)
+      render json: {message:'employee is already deleted'},status:400 
+  	else
+  		@employee.update(isdeleted:true)
+      @employee.save
+  		render json: {message:'employee deleted successfully !'},status:200
+    end			
   end 
 
-
-  def show_employe
+  def show_employee
     @under_teamlead=Employee.where(teamlead_id:params[:teamlead_id])
     render json: @under_teamlead
   end  
-
-
-    
-
 
   # private
 
